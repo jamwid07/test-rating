@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection AccessModifierPresentedInspection */
+
 namespace common\models;
 
 use Yii;
@@ -32,6 +33,12 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    const STATUS_APPIED = 1;
+    const STATUS_SIGNED = 2;
+    const STATUS_CONFIRMED = 3;
+    const STATUS_APPROVED = 4;
+    const STATUS_SPECIAL = 5;
+    const STATUS_INACTIVE = 0;
     /**
      * {@inheritdoc}
      */
@@ -65,6 +72,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
+            ['status_id', 'default', 'value' => 1],
         ];
     }
 
