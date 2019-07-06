@@ -30,19 +30,4 @@ class m190706_182023_add_values_to_status_table extends Migration
     {
         $this->truncateTable('{{%status}}');
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m190706_182023_add_values_to_status_table cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }
