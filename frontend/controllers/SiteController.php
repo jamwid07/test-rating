@@ -75,7 +75,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $users = User::find()->where(['status_id' => User::STATUS_APPROVED])->limit(10)->all();
+        $users = User::find()
+            ->joinWith('ratingCount')
+            ->where(['user.status_id' => [User::STATUS_APPROVED, User::STATUS_SPECIAL]])
+            ->orderBy('R10 DESC, R9 DESC, R8 DESC, R7 DESC, R6 DESC, R5 DESC, R4 DESC, R3 DESC, R2 DESC, R1 DESC')
+            ->limit(10)->all();
         return $this->render('index', ['users' => $users]);
     }
 
