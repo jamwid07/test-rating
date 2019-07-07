@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use common\models\User;
+use Faker\Factory;
 use Yii;
 use common\models\Action;
 use common\models\ActionSearch;
@@ -101,6 +103,8 @@ class ActionController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -123,5 +127,28 @@ class ActionController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionFake($amount = 10)
+    {
+        $faker = Factory::create('ru_RU');
+        $userCount = User::find()->count();
+        for ($i = 0; $i < $amount; $i++) {
+            $action = new Action([
+                'user_id' => $faker->numberBetween(1, $userCount),
+                'rating' => $faker->numberBetween(1, 10),
+                'target' => $faker->words(3, true),
+                'type' => $faker->word,
+                'duration' => $faker->numberBetween(60, 3600),
+            ]);
+            if ($action->save()) {
+                User::findOne($action->user_id)->calculateRating();
+            } else {
+                var_dump($action->getErrors()); exit;
+            }
+        }
+        Yii::$app->session->setFlash('success', $amount.' random actions created!');
+
+        return $this->goHome();
     }
 }
