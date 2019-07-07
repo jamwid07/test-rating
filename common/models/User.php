@@ -278,4 +278,22 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->status->can_send_msg;
     }
+
+    public function calculateRating()
+    {
+        $rating = Action::find()->where(['user_id' => $this->id])->average('rating');
+        $this->updateAttributes(['rating' => round($rating, 2)]);
+    }
+
+    public function getUpActionCount()
+    {
+        $count = Action::find()->where(['user_id' => $this->id])->andWhere(['>=', 'rating', 7])->count();
+        return $count;
+    }
+
+    public function getDownActionCount()
+    {
+        $count = Action::find()->where(['user_id' => $this->id])->andWhere(['<', 'rating', 7])->count();
+        return $count;
+    }
 }
