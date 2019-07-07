@@ -33,7 +33,7 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_APPIED = 1;
+    const STATUS_APPLIED = 1;
     const STATUS_SIGNED = 2;
     const STATUS_CONFIRMED = 3;
     const STATUS_APPROVED = 4;
@@ -264,4 +264,18 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    public function canRead()
+    {
+        return $this->status->can_read;
+    }
+
+    public function canPublish()
+    {
+        return $this->status->can_publish;
+    }
+
+    public function canSendMsg()
+    {
+        return $this->status->can_send_msg;
+    }
 }
