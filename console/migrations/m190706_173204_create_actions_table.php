@@ -19,7 +19,7 @@ class m190706_173204_create_actions_table extends Migration
             'rating' => $this->tinyInteger(),
             'target' => $this->string(),
             'type' => $this->string(),
-            'duration' => $this->string(),
+            'duration' => $this->integer(),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
         ]);

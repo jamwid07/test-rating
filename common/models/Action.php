@@ -44,8 +44,8 @@ class Action extends ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'rating', ], 'integer'],
-            [['target', 'type', 'duration'], 'string', 'max' => 255],
+            [['user_id', 'rating', 'duration'], 'integer'],
+            [['target', 'type'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
