@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
-/** @var \common\models\User[] $users */
+/** @var \common\models\RatingCount[] $users */
 
 $this->title = 'Главная страница';
 ?>
@@ -21,7 +21,7 @@ $this->title = 'Главная страница';
                 <tbody>
                     <?php foreach ($users as $key => $user) :?>
                     <tr>
-                        <td><?= $key ?></td>
+                        <td><?= $key+1 ?></td>
                         <td><?= $user->first_name ?></td>
                         <td><?= $user->last_name ?></td>
                         <td><?= $user->upActionCount?></td>
@@ -30,6 +30,9 @@ $this->title = 'Главная страница';
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <div class="col-sm-12">
+                <a href="/action/fake" class="btn btn-success">Генерировать новые действия</a>
+            </div>
         </div>
     </div>
 </div>

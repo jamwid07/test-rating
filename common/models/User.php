@@ -116,6 +116,10 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
 
+    public function getRatingCount()
+    {
+        return $this->hasOne(RatingCount::class, ['user_id' => 'id']);
+    }
     /**
      * {@inheritdoc}
      */

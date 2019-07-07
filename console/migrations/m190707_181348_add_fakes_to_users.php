@@ -38,19 +38,4 @@ class m190707_181348_add_fakes_to_users extends Migration
     {
         $this->truncateTable('{{%user}}');
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m190707_181348_add_fakes_to_users cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }
